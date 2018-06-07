@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -43,12 +45,24 @@ public class Usuario {
 	@Embedded
 	private Endereco endereco;
 	
-	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL)
 	private List<Servico> servicos;
 	
-	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL)
 	@Column(name="mao_de_obra")
 	private List<Servico> maoDeObra;
+	
+	public boolean ativo;
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	public Long getId() {
 		return id;

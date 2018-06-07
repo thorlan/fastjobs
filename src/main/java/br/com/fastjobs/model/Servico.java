@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="servico")
@@ -21,6 +26,10 @@ public class Servico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private TipoServico tipoServico;
 	
 	@ManyToOne
 	@JoinColumn(name ="codigo_usuario")
@@ -31,7 +40,7 @@ public class Servico {
 	private LocalDate data;
 	
 	//TODO: AMAZON S3
-	@OneToMany(mappedBy ="servico", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy ="servico")
 	private List<Foto> fotos;
 	
 	@Embedded
@@ -83,6 +92,22 @@ public class Servico {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public TipoServico getTipoServico() {
+		return tipoServico;
+	}
+
+	public void setTipoServico(TipoServico tipoServico) {
+		this.tipoServico = tipoServico;
+	}
+
+	public List<Foto> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<Foto> fotos) {
+		this.fotos = fotos;
 	}
 
 	@Override

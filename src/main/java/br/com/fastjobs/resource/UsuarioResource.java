@@ -7,33 +7,68 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fastjobs.model.Usuario;
 import br.com.fastjobs.repository.UsuarioRepository;
+import br.com.fastjobs.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioResource {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepostory;
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@PostMapping
 	public ResponseEntity<Usuario> criar(@Valid @RequestBody Usuario usuario) {
-		Usuario usuarioSalvo = this.usuarioRepostory.save(usuario);
+		Usuario usuarioSalvo = this.usuarioService.salvar(usuario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> buscarTodos() {
-		List<Usuario> lista = this.usuarioRepostory.findAll();
-		return ResponseEntity.ok().body(lista);
+	public List<Usuario> buscarTodos() {
+		List<Usuario> usuarios = this.usuarioRepository.findAll();
+		return usuarios;
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+		Usuario usuario = this.usuarioRepository.findById(id).orElseGet(()-> {
+			Usuario usuarioNull = null;
+			return usuarioNull;
+		});
+		return usuario == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(usuario);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
+		Usuario usuarioAtualizado = this.usuarioService.atualizar(id, usuario);
+		return ResponseEntity.ok(usuarioAtualizado);
+	}
+	
+	@PutMapping("/ativo/{id}")
+	public ResponseEntity<Usuario> trocarStatus(@PathVariable Long id) {
+		Usuario usuarioAtualizado = this.usuarioService.trocarStatus(id);
+		return ResponseEntity.ok(usuarioAtualizado);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deletar(@PathVariable Long id) {
+		System.out.println("entrei no delete");
+		usuarioRepository.deleteById(id);
+	}
 
 }
