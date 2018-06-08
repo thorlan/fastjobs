@@ -30,7 +30,8 @@ public class UsuarioService {
 	}
 	
 	public Usuario trocarStatus(Long id) {
-		Usuario usuario = this.usuarioRepository.getOne(id);
+		Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(
+				()-> new RecursoInexistenteException("Usuário não encontrado"));
 		usuario.setAtivo(!usuario.isAtivo());
 		return this.usuarioRepository.save(usuario);
 	}

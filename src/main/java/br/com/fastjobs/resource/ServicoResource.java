@@ -2,9 +2,11 @@ package br.com.fastjobs.resource;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fastjobs.event.RecursoCriadoEvent;
 import br.com.fastjobs.model.Servico;
 import br.com.fastjobs.repository.ServicoRepository;
 import br.com.fastjobs.service.ServicoService;
@@ -27,6 +30,8 @@ public class ServicoResource {
 	private ServicoRepository servicoRepository;
 	@Autowired
 	private ServicoService servicoService;
+	@Autowired
+	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
 	public List<Servico> buscarTodos() {
@@ -44,8 +49,11 @@ public class ServicoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Servico> criar(@Valid @RequestBody Servico servico) {
+	public ResponseEntity<Servico> criar(@Valid @RequestBody Servico servico, HttpServletResponse response) {
 		Servico servicoSalvo = this.servicoService.salvar(servico);
+		
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, servico.getId()));
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(servicoSalvo);
 	}
 	
