@@ -76,7 +76,6 @@ public class UsuarioResource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable Long id) {
-		System.out.println("entrei no delete");
 		usuarioRepository.deleteById(id);
 	}
 

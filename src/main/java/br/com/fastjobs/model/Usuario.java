@@ -54,6 +54,10 @@ public class Usuario {
 	@Column(name="mao_de_obra")
 	private List<Servico> maoDeObra;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario")
+	private List<Comentario> comentarios;
+	
 	public boolean ativo;
 	
 	public boolean isAtivo() {
@@ -126,6 +130,14 @@ public class Usuario {
 
 	public void setMaoDeObra(List<Servico> maoDeObra) {
 		this.maoDeObra = maoDeObra;
+	}
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

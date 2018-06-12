@@ -31,7 +31,7 @@ public class ServicoService {
 	}
 	
 	public Servico salvar(Servico servico) {
-		
+	
 		if (servico.getUsuario().getId() == null || !usuarioRepository.findById(servico.getUsuario().getId()).isPresent()) {
 			throw new RecursoInexistenteException("Usuário não encontrado");
 		}

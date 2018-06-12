@@ -1,40 +1,39 @@
 package br.com.fastjobs.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "foto")
-public class Foto {
+@Table(name="comentario")
+public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	
-	@ManyToOne
-	@JoinColumn(name = "codigo_servico")
-	private Servico servico;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "foto")
-	private List<Comentario> comentarios;
-
 	@NotNull
-	private String urlLink;
-
-	private String descricao;
+	public LocalDateTime dateTime;
+	
+	@NotNull
+	private String comentario;
+	
+	
+	@NotNull
+	@OneToOne
+	private Usuario usuario;
+	
+	@NotNull
+	@OneToOne
+	private Foto foto;
 
 	public Long getId() {
 		return id;
@@ -44,36 +43,36 @@ public class Foto {
 		this.id = id;
 	}
 
-	public String getUrlLink() {
-		return urlLink;
+	public String getComentario() {
+		return comentario;
 	}
 
-	public void setUrlLink(String urlLink) {
-		this.urlLink = urlLink;
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
 
-	public Servico getServico() {
-		return servico;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setServico(Servico servico) {
-		this.servico = servico;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Foto getFoto() {
+		return foto;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setFoto(Foto foto) {
+		this.foto = foto;
+	}
+	
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
 
-	public List<Comentario> getComentarios() {
-		return comentarios;
-	}
-
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	@Override
@@ -92,7 +91,7 @@ public class Foto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Foto other = (Foto) obj;
+		Comentario other = (Comentario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -100,5 +99,7 @@ public class Foto {
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }

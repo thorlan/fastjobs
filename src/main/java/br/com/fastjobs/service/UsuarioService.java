@@ -35,7 +35,8 @@ public class UsuarioService {
 		usuario.setAtivo(!usuario.isAtivo());
 		return this.usuarioRepository.save(usuario);
 	}
-	//TODO: delete apagando tudo, servicos, fotos, geral!
-	//TODO: desativar-> Fazer um desativar, para nao perder as coisas em vez de deletar.
-	//TODO: TRATAR A EXCEPTION DAQUI E DE SERVICOSERVICE
+	
+	//TODO: DESATIVAR SO SOME O USUARIO DA LISTA DE PESQUISAS
+	//TODO: UMA CLASSE QUE TENHA ESSAS VALIDACOES PARA NAO TER QUE REPETIR SEMPRE, SÓ
+	//PASSAR O OBJETO QUE ELE TRATA LA DENTRO DA PARADA.
 }

@@ -3,7 +3,6 @@ package br.com.fastjobs.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -30,7 +29,7 @@ public class Servico {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoServico tipoServico;
-	
+		
 	@ManyToOne
 	@JoinColumn(name ="codigo_usuario")
 	private Usuario usuario;
@@ -40,6 +39,7 @@ public class Servico {
 	private LocalDate data;
 	
 	//TODO: AMAZON S3
+	@JsonIgnore
 	@OneToMany(mappedBy ="servico")
 	private List<Foto> fotos;
 	

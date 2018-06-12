@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,16 @@ public class FastJobExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(erros);
 	}
 	
-	
+	@ExceptionHandler({ EmptyResultDataAccessException.class })
+	public ResponseEntity<Object> handleMethodEmptyResultDataAccess (EmptyResultDataAccessException ex){
+		
+		String mensagemDesenvolvedor = ex.toString();
+		String mensagemUsuario = messageSource.getMessage("recurso.inexistente", null,LocaleContextHolder.getLocale());
+				
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+
+		return ResponseEntity.badRequest().body(erros);
+	}
 	
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
