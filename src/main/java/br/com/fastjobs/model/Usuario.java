@@ -25,7 +25,6 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	@NotNull
 	@Length(min = 3, max = 50)
 	private String nome;

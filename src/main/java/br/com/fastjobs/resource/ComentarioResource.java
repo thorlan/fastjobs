@@ -1,5 +1,8 @@
 package br.com.fastjobs.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fastjobs.event.RecursoCriadoEvent;
 import br.com.fastjobs.model.Comentario;
+import br.com.fastjobs.model.Foto;
 import br.com.fastjobs.repository.ComentarioRepository;
+import br.com.fastjobs.repository.FotoRepository;
 import br.com.fastjobs.service.ComentarioService;
 //TODO: GET COMENTARIO POR FOTO!
 @RestController
@@ -34,6 +39,9 @@ public class ComentarioResource {
 	
 	@Autowired
 	private ComentarioService comentarioService;
+
+	@Autowired
+	private FotoRepository fotoRepository;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Comentario> buscarPorId(@PathVariable Long id) {
@@ -42,6 +50,12 @@ public class ComentarioResource {
 			return comentarioNull;
 		});
 		return comentario == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(comentario);
+	}
+	
+	@GetMapping("/foto/{id}")
+	public List<Comentario> buscarPorFoto(@PathVariable Long id) {
+		Foto foto = this.fotoRepository.findById(id).get();
+		return this.comentarioRepository.findByFoto(foto);
 	}
 	
 	@PostMapping
@@ -56,6 +70,12 @@ public class ComentarioResource {
 	@PutMapping("/{id}")
 	public ResponseEntity<Comentario> atualizar(@PathVariable Long id, @Valid @RequestBody Comentario comentario) {
 		Comentario comentarioAtualizado = this.comentarioService.atualizar(id, comentario);
+		return ResponseEntity.ok(comentarioAtualizado);
+	}
+	
+	@PutMapping("/foiVisto/{id}")
+	public ResponseEntity<Comentario> trocarStatus(@PathVariable Long id) {
+		Comentario comentarioAtualizado = this.comentarioService.trocarStatus(id);
 		return ResponseEntity.ok(comentarioAtualizado);
 	}
 	

@@ -26,7 +26,6 @@ public class Comentario {
 	@NotNull
 	private String comentario;
 	
-	
 	@NotNull
 	@OneToOne
 	private Usuario usuario;
@@ -34,6 +33,16 @@ public class Comentario {
 	@NotNull
 	@OneToOne
 	private Foto foto;
+	
+	private boolean foiVisto;
+
+	public boolean isFoiVisto() {
+		return foiVisto;
+	}
+
+	public void setFoiVisto(boolean foiVisto) {
+		this.foiVisto = foiVisto;
+	}
 
 	public Long getId() {
 		return id;

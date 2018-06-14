@@ -46,11 +46,26 @@ public class ComentarioService {
 	}
 
 	public Comentario atualizar(Long id, @Valid Comentario comentario) {
-		Comentario comentarioSalvo = this.comentarioRepository.findById(id).orElseThrow(
-				()-> new RecursoInexistenteException("Comentário não existe"));
+		
+		Comentario comentarioSalvo = buscarEValidarComentario(id);
 		
 		BeanUtils.copyProperties(comentario, comentarioSalvo, "codigo");
 
 		return this.comentarioRepository.save(comentarioSalvo);
+	}
+
+	public Comentario trocarStatus(Long id) {
+		
+		Comentario comentarioSalvo = buscarEValidarComentario(id);
+		
+		comentarioSalvo.setFoiVisto(!comentarioSalvo.isFoiVisto());
+		
+		return this.comentarioRepository.save(comentarioSalvo);
+	}
+
+	private Comentario buscarEValidarComentario(Long id) {
+		Comentario comentarioSalvo = this.comentarioRepository.findById(id).orElseThrow(
+				()-> new RecursoInexistenteException("Comentário não existe"));
+		return comentarioSalvo;
 	}
 }

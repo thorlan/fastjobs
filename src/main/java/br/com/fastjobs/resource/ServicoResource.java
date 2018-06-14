@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fastjobs.event.RecursoCriadoEvent;
 import br.com.fastjobs.model.Servico;
+import br.com.fastjobs.model.Usuario;
 import br.com.fastjobs.repository.ServicoRepository;
+import br.com.fastjobs.repository.filter.ServicoFilter;
 import br.com.fastjobs.service.ServicoService;
 
 @RestController
@@ -36,8 +38,8 @@ public class ServicoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<Servico> buscarTodos() {
-		List<Servico> servicos = this.servicoRepository.findAll();
+	public List<Servico> pesquisar(ServicoFilter servicoFilter) {
+		List<Servico> servicos = this.servicoRepository.filtrar(servicoFilter);
 		return servicos;
 	}
 	
