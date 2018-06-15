@@ -13,9 +13,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
 @Table(name = "foto")
+@JsonRootName("foto")
 public class Foto {
 
 	@Id

@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fastjobs.event.RecursoCriadoEvent;
+import br.com.fastjobs.model.Comentario;
 import br.com.fastjobs.model.Foto;
 import br.com.fastjobs.model.Servico;
 import br.com.fastjobs.repository.FotoRepository;
+import br.com.fastjobs.repository.ServicoRepository;
 import br.com.fastjobs.service.FotoService;
 
 @RestController
@@ -37,6 +39,9 @@ public class FotoResource {
 
 	@Autowired
 	private FotoService fotoService;
+
+	@Autowired
+	private ServicoRepository servicoRepository;
 	
 	@GetMapping
 	public List<Foto> buscarTodas(){
@@ -50,6 +55,12 @@ public class FotoResource {
 			return fotoNull;
 		});
 		return foto == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(foto);
+	}
+	
+	@GetMapping("/servico/{id}")
+	public List<Foto> buscarPorServico(@PathVariable Long id) {
+		Servico servico = this.servicoRepository.findById(id).get();
+		return this.fotoRepository.findByServico(servico);
 	}
 	
 	@PostMapping

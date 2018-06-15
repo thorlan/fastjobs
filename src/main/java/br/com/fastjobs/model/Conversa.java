@@ -1,50 +1,33 @@
 package br.com.fastjobs.model;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
-@Table(name="comentario")
-@JsonRootName("comentario")
-public class Comentario {
+@Table(name = "conversa")
+@JsonRootName("conversa")
+public class Conversa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
-	public LocalDateTime dateTime;
+	@OneToMany(mappedBy="conversa")
+	private List<Mensagem> mensagens;
 	
-	@NotNull
-	private String comentario;
-	
-	@NotNull
-	@OneToOne
+	@ManyToOne
 	private Usuario usuario;
+
 	
-	@NotNull
-	@OneToOne
-	private Foto foto;
-	
-	private boolean foiVisto;
-
-	public boolean isFoiVisto() {
-		return foiVisto;
-	}
-
-	public void setFoiVisto(boolean foiVisto) {
-		this.foiVisto = foiVisto;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -53,12 +36,12 @@ public class Comentario {
 		this.id = id;
 	}
 
-	public String getComentario() {
-		return comentario;
+	public List<Mensagem> getMensagens() {
+		return mensagens;
 	}
 
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void setMensagens(List<Mensagem> mensagens) {
+		this.mensagens = mensagens;
 	}
 
 	public Usuario getUsuario() {
@@ -67,22 +50,6 @@ public class Comentario {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Foto getFoto() {
-		return foto;
-	}
-
-	public void setFoto(Foto foto) {
-		this.foto = foto;
-	}
-	
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
 	}
 
 	@Override
@@ -101,7 +68,7 @@ public class Comentario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Comentario other = (Comentario) obj;
+		Conversa other = (Conversa) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -109,6 +76,7 @@ public class Comentario {
 			return false;
 		return true;
 	}
+
 	
 	
 	

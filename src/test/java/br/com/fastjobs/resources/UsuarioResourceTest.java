@@ -22,7 +22,7 @@ public class UsuarioResourceTest {
 				.get("http://localhost:8080/usuarios/1")
 				.andReturn().jsonPath();
 	  
-		Usuario usuario = path.getObject("", Usuario.class);//TODO: ADD "USUARIO" NO RETORNO DO GET
+		Usuario usuario = path.getObject("usuario", Usuario.class);//TODO: ADD "USUARIO" NO RETORNO DO GET
 		
 		assertTrue(usuario.getNome().contains("Riciele"));
   }

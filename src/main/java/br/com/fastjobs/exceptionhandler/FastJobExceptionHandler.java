@@ -3,6 +3,7 @@ package br.com.fastjobs.exceptionhandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -49,6 +50,18 @@ public class FastJobExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return ResponseEntity.badRequest().body(erros);
 	}
+	
+	@ExceptionHandler({ NoSuchElementException.class })
+	public ResponseEntity<Object> handleNoSuchElementException (NoSuchElementException ex){
+		
+		String mensagemDesenvolvedor = ex.toString();
+		String mensagemUsuario = messageSource.getMessage("recurso.inexistente", null,LocaleContextHolder.getLocale());
+				
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+
+		return ResponseEntity.badRequest().body(erros);
+	}
+	
 	
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,

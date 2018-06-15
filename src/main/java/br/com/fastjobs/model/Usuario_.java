@@ -13,6 +13,7 @@ public abstract class Usuario_ {
 	public static volatile ListAttribute<Usuario, Servico> servicos;
 	public static volatile SingularAttribute<Usuario, String> telefone;
 	public static volatile SingularAttribute<Usuario, Boolean> ativo;
+	public static volatile ListAttribute<Usuario, Conversa> conversas;
 	public static volatile SingularAttribute<Usuario, Endereco> endereco;
 	public static volatile ListAttribute<Usuario, Servico> maoDeObra;
 	public static volatile SingularAttribute<Usuario, String> nome;

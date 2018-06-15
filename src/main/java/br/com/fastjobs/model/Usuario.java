@@ -17,9 +17,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
 @Table(name = "usuario")
+@JsonRootName("usuario")
 public class Usuario {
 
 	@Id
@@ -28,37 +30,49 @@ public class Usuario {
 	@NotNull
 	@Length(min = 3, max = 50)
 	private String nome;
-	
+
 	@NotNull
 	@Email
 	private String email;
-	
+
 	@NotNull
-	@Length(min=5)
+	@Length(min = 5)
 	private String senha;
-	
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+	private List<Conversa> conversas;
+
 	@NotNull
 	@Length(min = 5, max = 15)
 	private String telefone;
-	
+
 	@Embedded
 	private Endereco endereco;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Servico> servicos;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy ="usuario", cascade = CascadeType.ALL)
-	@Column(name="mao_de_obra")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@Column(name = "mao_de_obra")
 	private List<Servico> maoDeObra;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy = "usuario")
 	private List<Comentario> comentarios;
-	
+
 	public boolean ativo;
-	
+
+	public void setConversas(List<Conversa> conversas) {
+		this.conversas = conversas;
+	}
+
+	public List<Conversa> getConversas() {
+		return conversas;
+	}
+
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -90,7 +104,7 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -130,7 +144,7 @@ public class Usuario {
 	public void setMaoDeObra(List<Servico> maoDeObra) {
 		this.maoDeObra = maoDeObra;
 	}
-	
+
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
