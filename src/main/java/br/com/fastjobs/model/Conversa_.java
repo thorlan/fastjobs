@@ -9,7 +9,6 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Conversa.class)
 public abstract class Conversa_ {
 
-	public static volatile SingularAttribute<Conversa, Usuario> usuario;
 	public static volatile SingularAttribute<Conversa, Long> id;
 	public static volatile ListAttribute<Conversa, Mensagem> mensagens;
 

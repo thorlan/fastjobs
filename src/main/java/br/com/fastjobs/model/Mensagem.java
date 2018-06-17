@@ -8,10 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
@@ -24,18 +28,45 @@ public class Mensagem {
 	private Long id;
 	
 	@NotNull
-	private String mensagem;
+	private Long remetenteId;
 	
 	@NotNull
-	private LocalDateTime diaEHora;
+	private Long destinatarioId;
 	
 	@ManyToOne
 	private Conversa conversa;
 	
-	@OneToOne
-	private Usuario destinatario;
+	@NotNull
+	private String mensagem;
+	
+	private LocalDateTime diaEHora;
 	
 	public boolean foiVista;
+
+	public Long getRemetenteId() {
+		return remetenteId;
+	}
+
+	public void setRemetenteId(Long remetenteId) {
+		this.remetenteId = remetenteId;
+	}
+
+	public Long getDestinatarioId() {
+		return destinatarioId;
+	}
+
+	public void setDestinatarioId(Long destinatarioId) {
+		this.destinatarioId = destinatarioId;
+	}
+	
+	@JsonIgnore
+	public Conversa getConversa() {
+		return conversa;
+	}
+	@JsonProperty
+	public void setConversa(Conversa conversa) {
+		this.conversa = conversa;
+	}
 
 	public boolean isFoiVista() {
 		return foiVista;
@@ -68,24 +99,4 @@ public class Mensagem {
 	public void setDiaEHora(LocalDateTime diaEHora) {
 		this.diaEHora = diaEHora;
 	}
-
-	public Conversa getConversa() {
-		return conversa;
-	}
-
-	public void setConversa(Conversa conversa) {
-		this.conversa = conversa;
-	}
-
-	public Usuario getDestinatario() {
-		return destinatario;
-	}
-
-	public void setDestinatario(Usuario destinatario) {
-		this.destinatario = destinatario;
-	}
-
-	
-	
-	
 }

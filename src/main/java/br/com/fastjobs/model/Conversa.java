@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
@@ -24,10 +26,6 @@ public class Conversa {
 	@OneToMany(mappedBy="conversa")
 	private List<Mensagem> mensagens;
 	
-	@ManyToOne
-	private Usuario usuario;
-
-	
 	public Long getId() {
 		return id;
 	}
@@ -36,20 +34,13 @@ public class Conversa {
 		this.id = id;
 	}
 
+	 @JsonProperty
 	public List<Mensagem> getMensagens() {
 		return mensagens;
 	}
-
+	@JsonIgnore
 	public void setMensagens(List<Mensagem> mensagens) {
 		this.mensagens = mensagens;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	@Override

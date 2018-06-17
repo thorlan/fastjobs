@@ -1,6 +1,5 @@
 package br.com.fastjobs.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ import br.com.fastjobs.model.Foto;
 import br.com.fastjobs.repository.ComentarioRepository;
 import br.com.fastjobs.repository.FotoRepository;
 import br.com.fastjobs.service.ComentarioService;
-//TODO: GET COMENTARIO POR FOTO!
+
 @RestController
 @RequestMapping("/comentarios")
 public class ComentarioResource {
