@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fastjobs.event.RecursoCriadoEvent;
 import br.com.fastjobs.model.Conversa;
 import br.com.fastjobs.repository.ConversaRepository;
+import br.com.fastjobs.repository.filter.ConversaFilter;
 import br.com.fastjobs.service.ConversaService;
 
 @RestController
@@ -52,16 +53,17 @@ public class ConversaResource {
 		return conversa == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(conversa);
 	}
 	
-	//TODO: BUSCAR CONVERSA DE UM UNICO USUARIO (BUSCAR DISTINC EM MSG ONDE USER1 OU USER2 == USER_ID
 	@GetMapping("/usuario/{id}")
 	public List<Conversa> buscarPorUsuario(@PathVariable Long id) {
 		List<Conversa> conversas = this.conversaService.buscarPorUsuario(id);
 		return conversas;
 	}
 	
+	// http://localhost:8080/conversas/usuarios?remetenteId=4&destinatarioId=2
+	@GetMapping("/usuarios")
+	public ResponseEntity<Conversa> buscarUmaConversaEntreDoisUsuarios(ConversaFilter conversaFilter) {
+		Conversa conversa = this.conversaService.buscaUmaConversaEspecifica(conversaFilter);
+		return conversa == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(conversa);
+	}
 	
-	//TODO: BUSCAR UMA CONVERSA ENTRE DOIS USUARIOS (
-				//BUSCAR EM MSG ONDE  ((USER1 OU USER2) == USUARIO1) 
-				//AND
-				// (USER1 OU USER2) == USUARIO2)
 }
