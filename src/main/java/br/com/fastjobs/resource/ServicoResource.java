@@ -1,12 +1,12 @@
 package br.com.fastjobs.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fastjobs.event.RecursoCriadoEvent;
 import br.com.fastjobs.model.Servico;
-import br.com.fastjobs.model.Usuario;
 import br.com.fastjobs.repository.ServicoRepository;
 import br.com.fastjobs.repository.filter.ServicoFilter;
 import br.com.fastjobs.service.ServicoService;
@@ -37,10 +36,10 @@ public class ServicoResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	//http://localhost:8080/servicos?size=1&page=1&filtroaqui
 	@GetMapping
-	public List<Servico> pesquisar(ServicoFilter servicoFilter) {
-		List<Servico> servicos = this.servicoRepository.filtrar(servicoFilter);
-		return servicos;
+	public Page<Servico> pesquisar(ServicoFilter servicoFilter,Pageable pageble) {
+		return this.servicoRepository.filtrar(servicoFilter, pageble);	
 	}
 	
 	@GetMapping("/{id}")

@@ -41,7 +41,6 @@ public class MensagemResource {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensagemSalva);
 	}
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<Mensagem> buscarPorId(@PathVariable Long id) {
 		Mensagem mensagem = this.mensagemRepository.findById(id).orElseGet(()-> {
@@ -50,6 +49,4 @@ public class MensagemResource {
 		});
 		return mensagem == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(mensagem);
 	}
-	
-	//TODO: DELETE 
 }

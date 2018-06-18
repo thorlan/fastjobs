@@ -36,8 +36,7 @@ public class ConversaResource {
 	@PostMapping
 	public ResponseEntity<Conversa> criar(HttpServletResponse response) {
 		
-		Conversa conversa = new Conversa();
-		Conversa conversaSalva = this.conversaRepository.save(conversa);
+		Conversa conversaSalva = this.conversaRepository.save(new Conversa());
 		
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, conversaSalva.getId()));
 		

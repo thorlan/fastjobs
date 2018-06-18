@@ -1,11 +1,12 @@
 package br.com.fastjobs.repository.servico;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import br.com.fastjobs.model.Servico;
 import br.com.fastjobs.repository.filter.ServicoFilter;
 
 public interface ServicoRepositoryQuery {
 	
-	public List<Servico> filtrar(ServicoFilter servicoFilter);
+	public Page<Servico> filtrar(ServicoFilter servicoFilter, Pageable pageble);
 }

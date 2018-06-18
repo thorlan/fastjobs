@@ -36,7 +36,9 @@ public class UsuarioService {
 		return this.usuarioRepository.save(usuario);
 	}
 	
-	//TODO: DESATIVAR SO SOME O USUARIO DA LISTA DE PESQUISAS
+	//TODO: DESATIVAR SO SOME O USUARIO DA LISTA DE PESQUISAS. criar a query, isAtivo = true.
 	//TODO: UMA CLASSE QUE TENHA ESSAS VALIDACOES PARA NAO TER QUE REPETIR SEMPRE, SÓ
 	//PASSAR O OBJETO QUE ELE TRATA LA DENTRO DA PARADA.
+	
+	//TODO: comecar a implementar a segurança.
 }

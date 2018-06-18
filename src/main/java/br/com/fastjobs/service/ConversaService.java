@@ -32,7 +32,8 @@ public class ConversaService {
 	
 	public Conversa buscaUmaConversaEspecifica(ConversaFilter conversaFilter) {
 		Long conversaId = this.conversaRepository.buscaConversaEntreDoisUsuarios(conversaFilter);
-		return this.conversaRepository.findById(conversaId).get();
+		return this.conversaRepository.findById(conversaId)
+				.orElseThrow(() -> new RecursoInexistenteException("Conversa não encontrada"));
 	}
 	
 }
