@@ -3,6 +3,7 @@ package br.com.fastjobs.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Conversa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToMany(mappedBy="conversa")
+	@OneToMany(mappedBy="conversa", fetch = FetchType.EAGER)
 	private List<Mensagem> mensagens;
 	
 	public Long getId() {
@@ -67,6 +68,13 @@ public class Conversa {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Conversa [id=" + id + "]";
+	}
+	
+	
 
 	
 	

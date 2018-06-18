@@ -6,4 +6,5 @@ import br.com.fastjobs.model.Mensagem;
 
 public interface MensagemRepository extends JpaRepository<Mensagem, Long> {
 
+	
 }
