@@ -12,7 +12,7 @@ import io.restassured.path.json.JsonPath;
 //@SpringBootTest(classes = { UsuarioResource.class })
 public class UsuarioResourceTest {
 
-  @Test
+/*  @Test
   public void deveRetornarUmUsuario() {
 	  
 	  JsonPath path = given().
@@ -25,6 +25,6 @@ public class UsuarioResourceTest {
 		Usuario usuario = path.getObject("usuario", Usuario.class);
 		
 		assertTrue(usuario.getNome().contains("Riciele"));
-  }
+  }*/
 }
 
