@@ -1,34 +1,48 @@
 package br.com.fastjobs.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @Configuration
+@EnableAuthorizationServer
+@EnableResourceServer
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	//TODO: BCRYPT AQUI!
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+	
+	@Bean
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		return super.authenticationManager();
+	}
+
+	//TODO: PEGAR ESSE USER E SENHA DO BANCO DE DADOS. É A SENHA E O LOGIN DO USUARIO!!!
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-			.withUser("admin").password("{noop}admin").roles("ROLE"); // {nooo} para evitar o erro do "no default password encoder" 
-		//TODO: PEGAR USER E O PASSWORD DO USUARIO E COMPARAR COM O DO BANCO PARA LOGAR.
-		//TODO: ADD MEU USER E SENHA NO HEADER LA NO POSTMAN. AUTENTICACAO BASIC.
+			.withUser("admin")
+			.password("admin")
+			.roles("PRODUTOS_PESQUISA")
+		;
 	}
 	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/servicos").permitAll()
-			.anyRequest().authenticated()
-				.and()
-			.httpBasic()
-				.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-			.csrf().disable();
-	}
+	
 }
+
+
+
