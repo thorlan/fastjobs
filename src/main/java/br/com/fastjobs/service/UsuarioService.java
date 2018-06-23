@@ -40,5 +40,4 @@ public class UsuarioService {
 	//TODO: UMA CLASSE QUE TENHA ESSAS VALIDACOES PARA NAO TER QUE REPETIR SEMPRE, SÓ
 	//PASSAR O OBJETO QUE ELE TRATA LA DENTRO DA PARADA.
 	
-	//TODO: comecar a implementar a segurança.
 }

@@ -7,7 +7,8 @@ import org.junit.Test;
 
 import br.com.fastjobs.model.Usuario;
 import io.restassured.path.json.JsonPath;
-
+//TODO: TESTES PARA TODOS OS RESOURCES. TODOS OS METODOS DELES.
+//TODO: TESTAR OS ENDPOINTS COM RESTASSURED!
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(classes = { UsuarioResource.class })
 public class UsuarioResourceTest {
