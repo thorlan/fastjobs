@@ -54,7 +54,7 @@ public class ConversaResource {
 	
 	@GetMapping("/usuario/{id}")
 	public List<Conversa> buscarPorUsuario(@PathVariable Long id) {
-		List<Conversa> conversas = this.conversaService.buscarPorUsuario(id);
+		List<Conversa> conversas = this.conversaService.buscaPorUsuario(id);
 		return conversas;
 	}
 	

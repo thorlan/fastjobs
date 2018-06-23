@@ -1,6 +1,5 @@
 package br.com.fastjobs.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +16,15 @@ public class ConversaService {
 	@Autowired
 	private ConversaRepository conversaRepository;
 
-	public List<Conversa> buscarPorUsuario(Long usuarioId) {
-	
-		List<Conversa> conversasDoUsuario = new ArrayList<>();
-		
-		List<Long> conversasTeste = this.conversaRepository.buscaPorUsuario(usuarioId);
-		for (Long idAchado : conversasTeste) {
-			Conversa conversaBuscada = this.conversaRepository.findById(idAchado)
-					.orElseThrow(() -> new RecursoInexistenteException("Conversa não encontrada"));
-			conversasDoUsuario.add(conversaBuscada);
-		}
-		return conversasDoUsuario;
+	public List<Conversa> buscaPorUsuario(Long id){
+		return this.conversaRepository.buscaConversaPorUsuario(id);
 	}
-	
+
 	public Conversa buscaUmaConversaEspecifica(ConversaFilter conversaFilter) {
 		Long conversaId = this.conversaRepository.buscaConversaEntreDoisUsuarios(conversaFilter);
 		return this.conversaRepository.findById(conversaId)
 				.orElseThrow(() -> new RecursoInexistenteException("Conversa não encontrada"));
 	}
+
 	
 }

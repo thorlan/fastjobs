@@ -8,6 +8,7 @@ import br.com.fastjobs.repository.filter.ConversaFilter;
 public interface ConversaRepositoryQuery {
 	
 	public Long buscaConversaEntreDoisUsuarios(ConversaFilter conversaFilter);
-	public List<Long> buscaPorUsuario(Long id);
+	
+	public List<Conversa> buscaConversaPorUsuario(Long id);
 
 }
