@@ -41,12 +41,12 @@ public class ComentarioResource {
 
 	@Autowired
 	private FotoRepository fotoRepository;
-	
+	//TODO: PASSAR TODO CODIGO QUE TENHA ALGUMA LOGICA PARA O SERVICE. 
+	//NOS RESOURCE SO CHAMAMOS OS SERVICES E VOLTAMOS O CAMINHO FELIZ.
 	@GetMapping("/{id}")
 	public ResponseEntity<Comentario> buscarPorId(@PathVariable Long id) {
 		Comentario comentario = this.comentarioRepository.findById(id).orElseGet(()-> {
-			Comentario comentarioNull = null; //TODO: RETORNAR NULL EM VEZ DE FAZER ISSO
-			return comentarioNull;
+			return null; //TODO: RETORNAR NULL EM VEZ DE FAZER ISSO	
 		});
 		return comentario == null ? ResponseEntity.notFound().build() :  ResponseEntity.ok(comentario);
 	}

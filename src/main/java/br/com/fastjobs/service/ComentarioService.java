@@ -33,10 +33,10 @@ public class ComentarioService {
 		Long fotoId = novoComentario.getFoto().getId();
 		Long usuarioId = novoComentario.getUsuario().getId();
 	
-		Usuario usuario = this.usuarioRepository.findById(usuarioId).orElseThrow(
+		this.usuarioRepository.findById(usuarioId).orElseThrow(
 				()-> new RecursoInexistenteException("Usuário não encontrado"));
 		
-		Foto foto = this.fotoRepository.findById(fotoId).orElseThrow(
+		this.fotoRepository.findById(fotoId).orElseThrow(
 				()-> new RecursoInexistenteException("Foto não encontrada"));
 	
 		LocalDateTime dataEHora = LocalDateTime.now();

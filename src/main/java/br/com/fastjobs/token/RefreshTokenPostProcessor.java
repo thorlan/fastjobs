@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @ControllerAdvice
 public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2AccessToken> {
 //esse generic é o tipo de dado que quero interceptar, se quiser pegar um responsebody que contenha um "usuario" so passar ele aqui.
-	
+	//TODO: MOVER O REFRESH TOKEN DO COOKIE PARA A REQUISICAO!
 	//só vou executar o beforeBodyWrite quando o support retornar true!
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

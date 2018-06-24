@@ -36,14 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManager();
 	}
 
-	//TODO: PEGAR ESSE USER E SENHA DO BANCO DE DADOS. É A SENHA E O LOGIN DO USUARIO!!!
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		//Pega o user e senha que eu passo aqui
 		/*auth.inMemoryAuthentication()
 			.withUser("admin@admin.com") //admin
 			.password("admin")
 			.roles("PRODUTOS_PESQUISA");*/
 		
+		//Pegando user e senha do meu BD
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
