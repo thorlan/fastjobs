@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("usuario")
 public class Usuario {
 
+	//TODO: AO CADASTRAR UM USUARIO, ASSOCIA-LO A UM USERLOGIN E CADASTRAR O MESMO JUNTO COM O USUARIO. DE PREFERENCIA MESMO ID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
